@@ -10,7 +10,7 @@ except ImportError:
 
 import mayan
 
-PACKAGE_NAME = 'mayan-edms'
+PACKAGE_NAME = 'open-paperless'
 PACKAGE_DIR = 'mayan'
 
 if sys.argv[-1] == 'publish':
@@ -91,7 +91,7 @@ python-dateutil==2.5.3
 python-gnupg==0.3.9
 python-magic==0.4.13
 pytz==2016.7
-requests==2.18.4 
+requests==2.18.4
 sh==1.12.11
 """.split()
 
@@ -102,8 +102,8 @@ with open('HISTORY.rst') as f:
     history = f.read()
 
 setup(
-    author='Roberto Rosario',
-    author_email='roberto.rosario@mayan-edms.com',
+    author='Tina Zhou',
+    author_email='littlezhoubear@gmail.com',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -119,7 +119,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
         'Topic :: Communications :: File Sharing',
     ],
-    description='Free Open Source Electronic Document Management System',
+    description='Document Management System',
     include_package_data=True,
     install_requires=install_requires,
     license='Apache 2.0',

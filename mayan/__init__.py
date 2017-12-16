@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
-__title__ = 'Mayan EDMS'
-__version__ = '2.7.3'
-__build__ = 0x020703
-__author__ = 'Roberto Rosario'
-__author_email__ = 'roberto.rosario@mayan-edms.com'
-__description__ = 'Free Open Source Electronic Document Management System'
+__title__ = 'Open Paperless'
+__version__ = '1.0'
+__build__ = 0x010000
+__author__ = 'Tina Zhou'
+__author_email__ = 'littlezhoubear@gmail.com'
+__description__ = 'Document Management System'
 __license__ = 'Apache 2.0'
-__copyright__ = 'Copyright 2011-2016 Roberto Rosario'
+__copyright__ = 'Copyright 2017 Tina Zhou'

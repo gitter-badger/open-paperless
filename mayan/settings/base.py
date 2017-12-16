@@ -199,7 +199,7 @@ STATIC_URL = '/static/'
 # ------------ Custom settings section ----------
 
 PROJECT_TITLE = mayan.__title__
-PROJECT_WEBSITE = 'http://www.mayan-edms.com'
+PROJECT_WEBSITE = 'https://github.com/zhoubear/open-paperless'
 PROJECT_COPYRIGHT = mayan.__copyright__
 PROJECT_LICENSE = mayan.__license__
 
