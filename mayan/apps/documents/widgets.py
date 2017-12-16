@@ -98,7 +98,7 @@ class InstanceImageWidget(object):
     # TODO: update this to load a disk template
     invalid_image_template = '<p>Invalid image</p>'
     preview_view_name = None
-    preview_query_dict = {}
+    preview_view_query_dict = {}
     image_class = 'lazy-load'
     title = None
     width = None
@@ -151,17 +151,29 @@ class InstanceImageWidget(object):
         )
 
     def get_destination_view_kwargs(self, instance):
-        return {
-            'pk': instance.pk
-        }
+        if self.click_view_name.startswith('rest_api'):
+            return {
+                'pk': instance.document.pk,
+                'version_pk': instance.document_version.pk,
+                'page_pk': instance.pk
+            }
+        else:
+            return {
+                'pk': instance.pk,
+            }
 
     # Preview view
     def get_preview_view_kwargs(self, instance):
-        return {
-            'pk': instance.document.pk,
-            'version_pk': instance.document_version.pk,
-            'page_pk': instance.pk
-        }
+        if self.preview_view_name.startswith('rest_api'):
+            return {
+                'pk': instance.document.pk,
+                'version_pk': instance.document_version.pk,
+                'page_pk': instance.pk
+            }
+        else:
+            return {
+                'pk': instance.pk,
+            }
 
     def get_preview_view_query_dict(self, instance):
         return self.preview_view_query_dict
@@ -251,10 +263,11 @@ class InstanceImageWidget(object):
 
 class BaseDocumentThumbnailWidget(InstanceImageWidget):
     alt_text = _('Document page image')
-    click_view_name = 'rest_api:documentpage-image'
-    click_view_query_dict = {
-        'size': setting_preview_size.value
-    }
+    #click_view_name = 'rest_api:documentpage-image'
+    click_view_name = 'documents:document_preview'
+    #click_view_query_dict = {
+    #    'size': setting_preview_size.value
+    #}
     gallery_name = 'document_list'
     invalid_image_template = """
         <span class="fa-stack fa-lg"><i class="fa fa-file-o fa-stack-2x"></i><i class="fa fa-question fa-stack-1x text-danger"></i></span>
@@ -288,11 +301,16 @@ class DocumentThumbnailWidget(BaseDocumentThumbnailWidget):
     width = '100%'
 
     def get_click_view_kwargs(self, instance):
-        return {
-            'pk': instance.pk,
-            'version_pk': instance.latest_version.pk,
-            'page_pk': instance.pages.first().pk
-        }
+        if self.click_view_name.startswith('rest_api'):
+            return {
+                'pk': instance.pk,
+                'version_pk': instance.latest_version.pk,
+                'page_pk': instance.pages.first().pk
+            }
+        else:
+            return {
+                'pk': instance.pk,
+            }
 
     def get_click_view_url(self, instance):
         first_page = instance.pages.first()
@@ -304,11 +322,16 @@ class DocumentThumbnailWidget(BaseDocumentThumbnailWidget):
             return '#'
 
     def get_preview_view_kwargs(self, instance):
-        return {
-            'pk': instance.pk,
-            'version_pk': instance.latest_version.pk,
-            'page_pk': instance.pages.first().pk
-        }
+        if self.preview_view_name.startswith('rest_api'):
+            return {
+                'pk': instance.pk,
+                'version_pk': instance.latest_version.pk,
+                'page_pk': instance.pages.first().pk
+            }
+        else:
+            return {
+                'pk': instance.pk,
+            }
 
     def get_preview_view_url(self, instance):
         first_page = instance.pages.first()
@@ -337,11 +360,16 @@ class DocumentVersionThumbnailWidget(DocumentThumbnailWidget):
     width = '100%'
 
     def get_click_view_kwargs(self, instance):
-        return {
-            'pk': instance.document.pk,
-            'version_pk': instance.pk,
-            'page_pk': instance.pages.first().pk
-        }
+        if self.click_view_name.startswith('rest_api'):
+            return {
+                'pk': instance.document.pk,
+                'version_pk': instance.pk,
+                'page_pk': instance.pages.first().pk
+            }
+        else:
+            return {
+                'pk': instance.pk,
+            }
 
     def get_click_view_url(self, instance):
         first_page = instance.pages.first()
@@ -353,11 +381,16 @@ class DocumentVersionThumbnailWidget(DocumentThumbnailWidget):
             return '#'
 
     def get_preview_view_kwargs(self, instance):
-        return {
-            'pk': instance.document.pk,
-            'version_pk': instance.pk,
-            'page_pk': instance.pages.first().pk
-        }
+        if self.preview_view_name.startswith('rest_api'):
+            return {
+                'pk': instance.document.pk,
+                'version_pk': instance.pk,
+                'page_pk': instance.pages.first().pk
+            }
+        else:
+            return {
+                'pk': instance.pk,
+            }
 
     def get_preview_view_url(self, instance):
         first_page = instance.pages.first()

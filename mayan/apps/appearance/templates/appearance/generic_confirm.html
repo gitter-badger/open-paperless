@@ -13,12 +13,10 @@
             {% trans 'Confirm' %}
         {% endif %}
     </h3>
-    <hr>
 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">
                     {% if title %}
                         <h3>{{ title }}</h3>
@@ -35,7 +33,7 @@
                 </div>
             {% endif %}
             <div class="modal-footer">
-                <form action="" method="post" class="form login">{% csrf_token %}
+                <form action="" class="form" method="post">{% csrf_token %}
                     {% if next %}
                         <input name="next" type="hidden" value="{{ next }}" />
                     {% endif %}
