@@ -71,24 +71,7 @@ App.prototype.resizeFullHeight = function () {
     $('.full-height').height(this.window.height() - $('.full-height').data('height-difference'));
 }
 
-App.prototype.doToastrMessages = function () {
-    toastr.options = {
-        'closeButton': true,
-        'debug': false,
-        'newestOnTop': true,
-        'positionClass': 'toast-top-right',
-        'preventDuplicates': false,
-        'onclick': null,
-        'showDuration': '300',
-        'hideDuration': '1000',
-        'timeOut': '5000',
-        'extendedTimeOut': '1000',
-        'showEasing': 'swing',
-        'hideEasing': 'linear',
-        'showMethod': 'fadeIn',
-        'hideMethod': 'fadeOut'
-    }
-
+App.prototype.doMessages = function () {
     // Add invisible bootstrap messages to copy the styles to toastr.js
 
     $('body').append('\
@@ -127,13 +110,19 @@ App.prototype.doToastrMessages = function () {
     ');
 
     $.each(DjangoMessages, function (index, value) {
-        var options = {};
+        var options = {
+            delay: 2000,
+            type: value.tags,
+            text: value.message,
+            styling: 'bootstrap3',
+        };
 
         if (value.tags === 'error') {
             // Error messages persist
-            options['timeOut'] = 10000;
+            options['delay'] = 10000;
         }
-        toastr[value.tags](value.message, '', options);
+
+        new PNotify(options);
     });
 }
 
@@ -223,7 +212,7 @@ jQuery(document).ready(function() {
 
     MayanImage.intialize();
 
-    app.doToastrMessages();
+    app.doMessages();
 
     app.setupSelect2();
 
@@ -232,4 +221,8 @@ jQuery(document).ready(function() {
     app.setupTableSelector();
 
     app.setupWindowPopUp();
+
+    $('.select-auto-submit').change(function () {
+        this.form.submit();
+    });
 });

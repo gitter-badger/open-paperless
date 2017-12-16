@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: 'IM Fell English SC';
     font-style: normal;
     font-weight: normal;
@@ -10,8 +10,6 @@
         url('../fonts/IM_Fell_English_SC.svg#IMFellEnglishSC') format('svg'),
         url('../fonts/IM_Fell_English_SC.ttf') format('truetype');
 }
-
-/* Flatly fonts */
 @font-face {
     font-family: 'Lato';
     font-style: normal;
@@ -172,19 +170,18 @@ a i {
     margin-right: 2px;
 }
 
-/* Notifications */
-#toast-container > div {
+ #toast-container > div {
   opacity: 1;
 }
 
-/* User menu */
 .link-text-span {
     padding-left: 10px;
     padding-right: 20px;
 }
 
 
-/* Make facet list group horizontal on small or smaller */
+// Make facet list group horizontal on small or smaller
+
 @media (max-width: 767px) {
     ul.list-group:after {
       clear: both;
@@ -197,7 +194,7 @@ a i {
     }
 }
 
-/* Collapse navigation on medium or smaller */
+// Collapse navigation on medium or smaller
 @media (max-width: 991px) {
   .navbar-header {
       float: none;
@@ -235,7 +232,7 @@ a i {
   }
 }
 
-/* List item view */
+// List item view
 
 .panel-item {
     box-shadow: 2px 2px 18px rgba(0, 0, 0, .2);
@@ -253,14 +250,14 @@ a i {
     font-weight: bold;
 }
 
-/* Content */
+// Content
 @media (min-width:1200px) {
     .container-fluid {
         width: 95%;
     }
 }
 
-/* Document widget */
+// Document widget
 .spinner-container {
     margin: auto;
     width: 100%;
@@ -272,7 +269,36 @@ a i {
     margin-top: 3px;
 }
 
-/* Cabinets */
+// Cabinets
 .cabinet-display {
     font-style: italic;
+}
+*/
+
+.text-green {
+    color: #1ABB9C;
+}
+
+body {
+    color: black;
+}
+
+.mayan-page-wrapper-interactive {
+    overflow: auto;
+}
+
+#carousel-container {
+    overflow-x: scroll; height: 500px;
+}
+
+#carousel-container img {
+    max-width: 100%;
+}
+
+.carousel-item {
+    margin: 5px 10px 10px 10px;
+}
+
+.carousel-item-page-number {
+    text-align: center;
 }

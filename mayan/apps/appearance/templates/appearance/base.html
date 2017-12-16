@@ -43,6 +43,11 @@
             <!-- bootstrap-daterangepicker -->
             <link href="{% static 'appearance/packages/gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
 
+            <link href="{% static 'appearance/packages/gentelella-master/vendors/pnotify/dist/pnotify.css' %}" rel="stylesheet">
+            <link href="{% static 'appearance/packages/gentelella-master/vendors/pnotify/dist/pnotify.buttons.css' %}" rel="stylesheet">
+            <link href="{% static 'appearance/packages/gentelella-master/vendors/pnotify/dist/pnotify.nonblock.css' %}" rel="stylesheet">
+
+
             <!-- Custom Theme Style -->
             <link href="{% static 'appearance/packages/gentelella-master/build/css/custom.css' %}" rel="stylesheet" type="text/css">
 
@@ -53,7 +58,7 @@
             <link href="{% static 'appearance/packages/fancyBox-master/source/jquery.fancybox.css' %}" media="screen" rel="stylesheet" type="text/css" />
             <link href="{% static 'appearance/packages/select2-4.0.3/dist/css/select2.min.css' %}" media="screen" rel="stylesheet" type="text/css" />
             {#<link href="{% static 'appearance/packages/toastr-master-998959b0/build/toastr.min.css' %}" media="screen" rel="stylesheet" type="text/css" />#}
-            {#<link href="{% static 'appearance/css/base.css' %}" media="screen" rel="stylesheet" type="text/css" />#}
+            <link href="{% static 'appearance/css/base.css' %}" media="screen" rel="stylesheet" type="text/css" />
             {% block stylesheets %}{% endblock %}
         {% endcompress %}
         <script>
@@ -68,17 +73,18 @@
             }
         </script>
     </head>
-    <body class="nav-md">
         {% if appearance_type == 'plain' %}
+            <body class="login">
             {% block content_plain %}{% endblock %}
         {% else %}
+            <body class="nav-md">
 
             <div class="container body">
                 <div class="main_container">
                     <div class="col-md-3 left_col">
                         <div class="left_col scroll-view">
                             <div class="navbar nav_title" style="border: 0;">
-                                <a href="{% url 'common:home' %}" class="site_title"><i class="fa fa-leaf"></i><span> {% project_name %}</span></a>
+                                <a href="{% url 'common:home' %}" class="site_title"><i class="bg-green fa fa-leaf"></i><span> {% project_name %}</span></a>
                             </div>
 
 
@@ -128,7 +134,7 @@
 
                     </div>
                     <!-- /sidebar menu -->
-
+{% comment %}
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
@@ -145,6 +151,7 @@
               </a>
             </div>
             <!-- /menu footer buttons -->
+{% endcomment %}
           </div>
         </div>
 
@@ -155,14 +162,15 @@
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt="">&nbsp;
                     <span class=" fa fa-angle-down"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+
+{% comment %}                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+
                     <li><a href="javascript:;"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
@@ -239,6 +247,7 @@
                     </li>
                   </ul>
                 </li>
+{% endcomment %}
               </ul>
             </nav>
           </div>
@@ -247,74 +256,71 @@
 
         <!-- page content -->
         <div class="right_col" role="main" style="min-height: 1716px;">
+            <div class="row">
+                <div class="col-xs-12">
+                    {% block messages %}{% endblock %}
+                </div>
+            </div>
 
+            {% get_menus_links names='object menu,sidebar menu,secondary menu' as links %}
+            {% get_menu_links 'object facet' as form_navigation_links %}
 
-
-                <div class="row">
+            <div class="row">
+                {% if links or form_navigation_links %}
+                    <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+                {% else %}
                     <div class="col-xs-12">
-                        {% block messages %}{% endblock %}
-                    </div>
+                {% endif %}
+                    {% block content %}{% endblock %}
+                    {% block footer %}{% endblock %}
                 </div>
 
-                {% get_menus_links names='object menu,sidebar menu,secondary menu' as links %}
-                {% get_menu_links 'object facet' as form_navigation_links %}
+                {% if links or form_navigation_links %}
+                    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                {% endif %}
 
-                <div class="row">
-                    {% if links or form_navigation_links %}
-                        <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
-                    {% else %}
-                        <div class="col-xs-12">
-                    {% endif %}
-                        {% block content %}{% endblock %}
-                        {% block footer %}{% endblock %}
+                {% if links %}
+                    <div class="pull-right btn-group" style="margin-bottom: 10px;">
+                        <button aria-expanded="true" type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">
+                            {% trans 'Actions' %}
+                            <span class="caret"></span>
+                            <span class="sr-only">{% trans 'Toggle Dropdown' %}</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            {% for links_set in links %}
+                                {% for entry in links_set %}
+                                    <li><a class="btn-sm" href="{{ entry.url }}">{{ entry.text }}</a></li>
+                                {% endfor %}
+
+                                {% if not forloop.last and links_set %}
+                                    <li class="divider"></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
                     </div>
+                     <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
+                {% endif %}
 
-                    {% if links or form_navigation_links %}
-                        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
-                    {% endif %}
+                {% if form_navigation_links %}
+                    <div class="pull-right list-group">
+                        {% if form_navigation_links %}
+                            {% for object_navigation_links in form_navigation_links %}
+                                {% with 'true' as hide_active_anchor %}
+                                {% with 'active' as link_class_active %}
+                                {% with 'list-group-item btn-sm' as link_classes %}
+                                    {% include 'navigation/generic_navigation.html' %}
+                                {% endwith %}
+                                {% endwith %}
+                                {% endwith %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endif %}
 
-                    {% if links %}
-                        <div class="pull-right btn-group" style="margin-bottom: 10px;">
-                            <button aria-expanded="true" type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown">
-                                {% trans 'Actions' %}
-                                <span class="caret"></span>
-                                <span class="sr-only">{% trans 'Toggle Dropdown' %}</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                {% for links_set in links %}
-                                    {% for entry in links_set %}
-                                        <li><a class="btn-sm" href="{{ entry.url }}">{{ entry.text }}</a></li>
-                                    {% endfor %}
-
-                                    {% if not forloop.last and links_set %}
-                                        <li class="divider"></li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                         <div class="clearfix visible-xs-block visible-sm-block visible-md-block visible-lg-block"></div>
-                    {% endif %}
-
-                    {% if form_navigation_links %}
-                        <div class="pull-right list-group">
-                            {% if form_navigation_links %}
-                                {% for object_navigation_links in form_navigation_links %}
-                                    {% with 'true' as hide_active_anchor %}
-                                    {% with 'active' as link_class_active %}
-                                    {% with 'list-group-item btn-sm' as link_classes %}
-                                        {% include 'navigation/generic_navigation.html' %}
-                                    {% endwith %}
-                                    {% endwith %}
-                                    {% endwith %}
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endif %}
-
-                    {% if links or form_navigation_links %}
-                        </div>
-                    {% endif %}
-                </div>
+                {% if links or form_navigation_links %}
+                    </div>
+                {% endif %}
+            </div>
         </div>
         <!-- /page content -->
 
@@ -374,24 +380,29 @@
             <script src="{% static 'appearance/packages/gentelella-master/vendors/moment/min/moment.min.js' %}"></script>
             <script src="{% static 'appearance/packages/gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
 
+           <!-- PNotify -->
+            <script src="{% static 'appearance/packages/gentelella-master/vendors/pnotify/dist/pnotify.js' %}"></script>
+            <script src="{% static 'appearance/packages/gentelella-master/vendors/pnotify/dist/pnotify.buttons.js' %}"></script>
+            <script src="{% static 'appearance/packages/gentelella-master/vendors/pnotify/dist/pnotify.nonblock.js' %}"></script>
+
             <!-- Custom Theme Scripts -->
-            <script src="{% static 'appearance/packages/gentelella-master/build/js/custom.min.js' %}"></script>
+            <script src="{% static 'appearance/packages/gentelella-master/build/js/custom.js' %}"></script>
 
 {% comment %}
         <script type="text/javascript" src="{% static 'appearance/packages/jquery-2.1.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'appearance/packages/bootstrap-3.3.4-dist/js/bootstrap.min.js' %}"></script>
 {% endcomment %}
 
-        <script type="text/javascript" src="{% static 'appearance/packages/jquery.scrollview.js' %}"></script>
-        <script type="text/javascript" src="{% static 'appearance/packages/jquery_lazyload-master/jquery.lazyload.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'appearance/packages/fancyBox-master/source/jquery.fancybox.pack.js' %}"></script>
-        <script type="text/javascript" src="{% static 'appearance/packages/fancyBox-master/lib/jquery.mousewheel.pack.js' %}"></script>
-        <script type="text/javascript" src="{% static 'appearance/packages/select2-4.0.3/dist/js/select2.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'appearance/packages/toastr-master-998959b0/build/toastr.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'appearance/packages/jquery.scrollview.js' %}"></script>
+            <script type="text/javascript" src="{% static 'appearance/packages/jquery_lazyload-master/jquery.lazyload.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'appearance/packages/fancyBox-master/source/jquery.fancybox.pack.js' %}"></script>
+            <script type="text/javascript" src="{% static 'appearance/packages/fancyBox-master/lib/jquery.mousewheel.pack.js' %}"></script>
+            <script type="text/javascript" src="{% static 'appearance/packages/select2-4.0.3/dist/js/select2.min.js' %}"></script>
+            {#<script type="text/javascript" src="{% static 'appearance/packages/toastr-master-998959b0/build/toastr.min.js' %}"></script>#}
 
-        <script type="text/javascript" src="{% static 'appearance/packages/jquery.matchHeight-min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'appearance/packages/jquery.matchHeight-min.js' %}"></script>
 
-        <script type="text/javascript" src="{% static 'appearance/js/base.js' %}"></script>
+            <script type="text/javascript" src="{% static 'appearance/js/base.js' %}"></script>
         {% endcompress %}
 
         <script>

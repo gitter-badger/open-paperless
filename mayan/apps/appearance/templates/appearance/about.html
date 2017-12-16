@@ -9,36 +9,6 @@
 
 {% block stylesheets %}
     <style>
-        @font-face {
-            font-family: 'mayan-edms';
-            src: url("{% static 'appearance/fonts/mayan-edms.ttf' %}") format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        [class^="icon-"], [class*=" icon-"] {
-            font-family: 'mayan-edms';
-            speak: none;
-            font-style: normal;
-            font-weight: normal;
-            font-variant: normal;
-            text-transform: none;
-            line-height: 1;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .icon-mayan-edms-logo:before {
-            content: "\e600";
-            font-size: 150%;
-        }
-
-        .mayan-edms-logo {
-            font-family: 'IM Fell English SC', serif;
-            font-size: 150%;
-            text-shadow: 5px 5px 1px rgba(0, 0, 0, 0.3);
-        }
-
         @media (min-width: 768px) {
             .mayan-edms-logo {
                 font-size: 300%;
@@ -76,7 +46,7 @@
                 {% trans 'Released under the Apache 2.0 License' %}
             </p>
 
-            <p class="text-center mayan-edms-logo">Open <i class="fa fa-leaf"></i> Paperless</p>
+            <p class="text-center mayan-edms-logo"><i class="fa fa-leaf text-green"></i> Open Paperless</p>
         </div>
     </div>
 {% endblock %}

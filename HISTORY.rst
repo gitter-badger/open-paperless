@@ -1,3 +1,10 @@
+1.0 (TBA)
+==================
+- Rebuild UI
+
+Old history
+-----------
+
 2.7.3 (2017-09-11)
 ==================
 - Fix task manager queue list view. Thanks to LeVon Smoker for

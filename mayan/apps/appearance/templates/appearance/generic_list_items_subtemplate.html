@@ -28,9 +28,12 @@
                     {% if multi_item_actions %}
                         <fieldset>
                             {{ multi_item_form }}
-                                &nbsp;<button class="btn btn-primary btn-xs" type="submit" name="{{ form.prefix }}-submit">
-                                    {% trans 'Submit' %}
-                                </button>
+{% comment %}
+                                    &nbsp;<button class="btn btn-primary btn-xs" type="submit" name="{{ form.prefix }}-submit">
+                                        {% trans 'Submit' %}
+                                    </button>
+{% endcomment %}
+
                         </fieldset>
                     {% endif %}
                 {% endif %}
@@ -38,10 +41,6 @@
         <div class="clearfix"></div>
     </div>
         <div class="x_content">
-
-            {% if scrollable_content %}
-                <div style="border: 1px solid; height: {{ scrollable_content_height }}; overflow: auto;">
-            {% endif %}
 
             <div class="row">
                 {% for object in object_list %}
@@ -112,9 +111,6 @@
             {% endfor %}
         </div>
 
-        {% if scrollable_content %}
-            </div>
-        {% endif %}
     </form>
         {% include 'pagination/pagination.html' %}
     </div>

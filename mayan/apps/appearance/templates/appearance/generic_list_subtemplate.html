@@ -28,20 +28,17 @@
                         {% if multi_item_actions %}
                             <fieldset>
                                 {{ multi_item_form }}
+                                {% comment %}
                                     &nbsp;<button class="btn btn-primary btn-xs" type="submit" name="{{ form.prefix }}-submit">
                                         {% trans 'Submit' %}
                                     </button>
+                                {% endcomment %}
                             </fieldset>
                         {% endif %}
                     {% endif %}
             </div>
             <div class="clearfix"></div>
             <div class="x_content">
-
-                {% if scrollable_content %}
-                    <div style="border: 1px solid; height: {{ scrollable_content_height }}; overflow: auto;">
-                {% endif %}
-
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped jambo_table bulk_action">
                             <thead>
@@ -120,10 +117,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                {% if scrollable_content %}
-                    </div>
-                {% endif %}
             </form>
             {% include 'pagination/pagination.html' %}
         </div>
