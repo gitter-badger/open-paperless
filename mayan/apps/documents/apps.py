@@ -13,7 +13,7 @@ from common import (
     MayanAppConfig, MissingItem, menu_facet, menu_main, menu_object,
     menu_secondary, menu_setup, menu_sidebar, menu_multi_item, menu_tools
 )
-from common.classes import ModelAttribute
+from common.classes import Collection, ModelAttribute
 from common.dashboards import dashboard_main
 from common.signals import post_initial_setup
 from common.widgets import two_state_template
@@ -116,6 +116,21 @@ class DocumentsApp(MayanAppConfig):
         DocumentTypeFilename = self.get_model('DocumentTypeFilename')
         DocumentVersion = self.get_model('DocumentVersion')
         DuplicatedDocument = self.get_model('DuplicatedDocument')
+
+        Collection(
+            label=_('Recent documents'), link=link_document_list_recent,
+            order=1
+        )
+        Collection(
+            label=_('Document types'), model=DocumentType,
+            icon='fa fa-book'
+        )
+        Collection(
+            label=_('All documents'), link=link_document_list, order=99
+        )
+        Collection(
+            label=_('Trash'), link=link_document_list_deleted, order=100
+        )
 
         DynamicSerializerField.add_serializer(
             klass=Document,

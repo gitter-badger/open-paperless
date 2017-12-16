@@ -17,36 +17,38 @@
                 {% blocktrans with object_list|length as total %}Total: {{ total }}{% endblocktrans %}
             {% endif %}
         </h4>
-        <hr>
 
-        <div class="well center-block">
-
-            <form action="{% url 'common:multi_object_action_view' %}" class="pure-form" method="get">
-                {% if object_list %}
-                    {% if not hide_multi_item_actions %}
-                        {% get_multi_item_links_form object_list %}
+        <div class="x_panel">
+            <div class="nav navbar-right panel_toolbox">
+                <form action="{% url 'common:multi_object_action_view' %}" class="pure-form" method="get">
+                    {% if object_list %}
+                        {% if not hide_multi_item_actions %}
+                            {% get_multi_item_links_form object_list %}
+                        {% endif %}
+                        {% if multi_item_actions %}
+                            <fieldset>
+                                {{ multi_item_form }}
+                                    &nbsp;<button class="btn btn-primary btn-xs" type="submit" name="{{ form.prefix }}-submit">
+                                        {% trans 'Submit' %}
+                                    </button>
+                            </fieldset>
+                        {% endif %}
                     {% endif %}
-                    {% if multi_item_actions %}
-                        <fieldset>
-                            {{ multi_item_form }}
-                                &nbsp;<button class="btn btn-primary btn-xs" type="submit" name="{{ form.prefix }}-submit">
-                                    {% trans 'Submit' %}
-                                </button>
-                        </fieldset>
-                    {% endif %}
-                {% endif %}
+            </div>
+            <div class="clearfix"></div>
+            <div class="x_content">
 
                 {% if scrollable_content %}
                     <div style="border: 1px solid; height: {{ scrollable_content_height }}; overflow: auto;">
                 {% endif %}
 
                     <div class="table-responsive">
-                        <table class="table table-condensed table-striped">
-                            <tbody>
+                        <table class="table table-condensed table-striped jambo_table bulk_action">
+                            <thead>
                                 {% if not hide_header %}
                                     <tr>
                                         {% if multi_item_actions %}
-                                            <th class="first"><input type="checkbox" class="checkbox toggle" /></th>
+                                            <th class="first"><input class="flat" id="check-all" type="checkbox"/></th>
                                         {% endif %}
 
                                         {% if not hide_object %}
@@ -68,15 +70,17 @@
                                         {% endif %}
                                     </tr>
                                 {% endif %}
+                            </thead>
+                            <tbody>
                                 {% for object in object_list %}
                                     <tr>
 
                                     {% if multi_item_actions %}
                                         <td>
                                         {% if multi_select_item_properties %}
-                                            <input type="checkbox" class="checkbox" name="properties_{{ object|get_encoded_parameter:multi_select_item_properties }}" value="" />
+                                            <input class="flat" type="checkbox" name="properties_{{ object|get_encoded_parameter:multi_select_item_properties }}" value="" />
                                         {% else %}
-                                            <input type="checkbox" class="checkbox" name="pk_{{ object.pk }}" value="" />
+                                            <input class="flat" type="checkbox" name="pk_{{ object.pk }}" value="" />
                                         {% endif %}
                                         </td>
                                     {% endif %}
@@ -102,7 +106,9 @@
                                             {% get_menu_links 'object menu' source=object as resolved_links %}
                                             {% for object_navigation_links in resolved_links %}
                                                 {% with 'true' as horizontal %}
+                                                {% with 'true' as as_group %}
                                                     {% include 'navigation/generic_navigation.html' %}
+                                                {% endwith %}
                                                 {% endwith %}
                                             {% endfor %}
                                         </td>

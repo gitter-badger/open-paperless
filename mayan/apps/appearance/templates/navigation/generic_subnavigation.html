@@ -2,16 +2,18 @@
 {% load navigation_tags %}
 
 {% if link|get_type == "<class 'navigation.classes.Menu'>" %}
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+
+    <li class="">
+        <a>
             {% if link.icon %}
-            <i class="hidden-xs hidden-sm hidden-md {{ link.icon }}"></i>
+                <i class="{{ link.icon }}"></i>
             {% endif %}
 
             {{ link.label }}
-            <span class="caret"></span>
+
+            <span class="fa fa-chevron-down"></span></a>
         </a>
-        <ul class="dropdown-menu">
+        <ul class="nav child_menu">
             {% get_menu_links link.name as menu_links %}
             {% for linkset in menu_links %}
                 {% with '' as li_class_active %}

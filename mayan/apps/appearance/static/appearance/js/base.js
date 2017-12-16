@@ -145,6 +145,7 @@ var MayanImage = function (options) {
 }
 
 MayanImage.intialize = function () {
+    /*
     $('a.fancybox').fancybox({
         beforeShow : function(){
             this.title = $(this.element).data('caption');
@@ -157,6 +158,7 @@ MayanImage.intialize = function () {
         type        : 'image',
         autoResize  : true,
     });
+    */
 
    $('img.lazy-load').lazyload({
         appear: function(elements_left, settings) {

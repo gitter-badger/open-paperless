@@ -19,7 +19,13 @@
         </ul>
     </div>
 {% else %}
-    {% for link in object_navigation_links %}
-        {% include 'navigation/generic_subnavigation.html' %}
-    {% endfor %}
+    {% if as_group %}
+        <div class="btn-group">
+    {% endif %}
+        {% for link in object_navigation_links %}
+            {% include 'navigation/generic_subnavigation.html' %}
+        {% endfor %}
+    {% if as_group %}
+        </div>
+    {% endif %}
 {% endif %}
