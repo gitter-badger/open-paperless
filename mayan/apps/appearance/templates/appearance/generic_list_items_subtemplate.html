@@ -27,12 +27,13 @@
                     {% endif %}
                     {% if multi_item_actions %}
                         <fieldset>
+                            <input class="checkbox-check-all-list-item" type="checkbox"/>&nbsp;
                             {{ multi_item_form }}
-{% comment %}
+                                {% comment %}
                                     &nbsp;<button class="btn btn-primary btn-xs" type="submit" name="{{ form.prefix }}-submit">
                                         {% trans 'Submit' %}
                                     </button>
-{% endcomment %}
+                                {% endcomment %}
 
                         </fieldset>
                     {% endif %}
@@ -46,36 +47,30 @@
                 {% for object in object_list %}
 
                     <div class="col-md-3 col-xs-12 widget widget_tally_box">
-                        <div class="x_panel fixed_height_390">
-                            <div class="x_title">
+                        <div class="x_panel fixed_height_390 panel-document">
+                            <div class="x_title" style="overflow: hidden; white-space: nowrap;">
 
-                                <div class="">
-                                    <div class="">
-                                        <label for="id_indexes_0">
-                                            {% if multi_item_actions %}
-                                                {% if multi_select_item_properties %}
-                                                    <input class="flat" type="checkbox" name="properties_{{ object|get_encoded_parameter:multi_select_item_properties }}" value="" />
-                                                {% else %}
-                                                    <input class="flat" type="checkbox" name="pk_{{ object.pk }}" value="" />
-                                                {% endif %}
-                                            {% endif %}
-                                            &nbsp;
+                                <label for="id_indexes_0">
+                                    {% if multi_item_actions %}
+                                        {% if multi_select_item_properties %}
+                                            <input class="" type="checkbox" name="properties_{{ object|get_encoded_parameter:multi_select_item_properties }}" value="" />
+                                        {% else %}
+                                            <input class="" type="checkbox" name="pk_{{ object.pk }}" value="" />
+                                        {% endif %}
+                                    {% endif %}
+                                    &nbsp;
 
-                                            <span style="word-break: break-all; overflow-wrap: break-word;">
-                                                {% if not hide_object %}
-                                                    {% if main_object %}
-                                                        {% with object|object_property:main_object as object %}
-                                                            {% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}
-                                                        {% endwith %}
-                                                    {% else %}
-                                                        {% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}
-                                                    {% endif %}
-                                                {% endif %}
+                                    {% if not hide_object %}
+                                        {% if main_object %}
+                                            {% with object|object_property:main_object as object %}
+                                                {% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}
+                                            {% endwith %}
+                                        {% else %}
+                                            {% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}
+                                        {% endif %}
+                                    {% endif %}
 
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
+                                </label>
 
                             <div class="clearfix"></div>
                       </div>

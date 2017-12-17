@@ -39,84 +39,85 @@
             </div>
             <div class="clearfix"></div>
             <div class="x_content">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-striped jambo_table bulk_action">
-                            <thead>
-                                {% if not hide_header %}
-                                    <tr>
-                                        {% if multi_item_actions %}
-                                            <th class="first"><input class="flat" id="check-all" type="checkbox"/></th>
-                                        {% endif %}
-
-                                        {% if not hide_object %}
-                                            <th>{% trans 'Identifier' %}</th>
-                                        {% endif %}
-
-                                        {% if not hide_columns %}
-                                            {% for column in object_list|get_source_columns %}
-                                                <th>{{ column.label }}</th>
-                                            {% endfor %}
-                                        {% endif %}
-
-                                        {% for column in extra_columns %}
-                                            <th>{{ column.name }}</th>
-                                        {% endfor %}
-
-                                        {% if not hide_links %}
-                                            <th class="">&nbsp;</th>
-                                        {% endif %}
-                                    </tr>
-                                {% endif %}
-                            </thead>
-                            <tbody>
-                                {% for object in object_list %}
-                                    <tr>
-
+                <div class="table-responsive">
+                    <table class="table table-condensed table-striped jambo_table bulk_action">
+                        <thead>
+                            {% if not hide_header %}
+                                <tr>
                                     {% if multi_item_actions %}
-                                        <td>
-                                        {% if multi_select_item_properties %}
-                                            <input class="flat" type="checkbox" name="properties_{{ object|get_encoded_parameter:multi_select_item_properties }}" value="" />
-                                        {% else %}
-                                            <input class="flat" type="checkbox" name="pk_{{ object.pk }}" value="" />
-                                        {% endif %}
-                                        </td>
+                                        <th class="first"><input class="" id="check-all" type="checkbox"/></th>
                                     {% endif %}
+
                                     {% if not hide_object %}
-                                        {% if main_object %}
-                                            {% with object|object_property:main_object as object %}
-                                                <td>{% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}</td>
-                                            {% endwith %}
-                                        {% else %}
-                                            <td>{% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}</td>
-                                        {% endif %}
+                                        <th>{% trans 'Identifier' %}</th>
                                     {% endif %}
-                                     {% if not hide_columns %}
-                                        {% for column in object|get_source_columns %}
-                                            <td>{% source_column_resolve column=column %}{{ column_result }}</td>
+
+                                    {% if not hide_columns %}
+                                        {% for column in object_list|get_source_columns %}
+                                            <th>{{ column.label }}</th>
                                         {% endfor %}
                                     {% endif %}
+
                                     {% for column in extra_columns %}
-                                        <td>{{ object|object_property:column.attribute }}</td>
+                                        <th>{{ column.name }}</th>
                                     {% endfor %}
+
                                     {% if not hide_links %}
-                                        <td class="last">
-                                            {% get_menu_links 'object menu' source=object as resolved_links %}
-                                            {% for object_navigation_links in resolved_links %}
-                                                {% with 'true' as horizontal %}
-                                                {% with 'true' as as_group %}
-                                                    {% include 'navigation/generic_navigation.html' %}
-                                                {% endwith %}
-                                                {% endwith %}
-                                            {% endfor %}
-                                        </td>
+                                        <th class="">&nbsp;</th>
                                     {% endif %}
-                                    </tr>
-                                {% empty %}
-                                    <tr><td class="text-center" colspan=99>{% trans 'No results' %}</td></tr>
+                                </tr>
+                            {% endif %}
+                        </thead>
+                        <tbody>
+                            {% for object in object_list %}
+                                <tr>
+
+                                {% if multi_item_actions %}
+                                    <td>
+                                    {% if multi_select_item_properties %}
+                                        <input class="" type="checkbox" name="properties_{{ object|get_encoded_parameter:multi_select_item_properties }}" value="" />
+                                    {% else %}
+                                        <input class="" type="checkbox" name="pk_{{ object.pk }}" value="" />
+                                    {% endif %}
+                                    </td>
+                                {% endif %}
+                                {% if not hide_object %}
+                                    {% if main_object %}
+                                        {% with object|object_property:main_object as object %}
+                                            <td>{% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}</td>
+                                        {% endwith %}
+                                    {% else %}
+                                        <td>{% if not hide_link %}<a href="{{ object.get_absolute_url }}">{{ object }}</a>{% else %}{{ object }}{% endif %}</td>
+                                    {% endif %}
+                                {% endif %}
+                                 {% if not hide_columns %}
+                                    {% for column in object|get_source_columns %}
+                                        <td>{% source_column_resolve column=column %}{{ column_result }}</td>
+                                    {% endfor %}
+                                {% endif %}
+                                {% for column in extra_columns %}
+                                    <td>{{ object|object_property:column.attribute }}</td>
                                 {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                {% if not hide_links %}
+                                    <td class="last">
+                                        {% get_menu_links 'object menu' source=object as resolved_links %}
+                                        {% for object_navigation_links in resolved_links %}
+                                            {% with 'true' as horizontal %}
+                                            {% with 'true' as as_group %}
+                                                {% include 'navigation/generic_navigation.html' %}
+                                            {% endwith %}
+                                            {% endwith %}
+                                        {% endfor %}
+                                    </td>
+                                {% endif %}
+                                </tr>
+                            {% empty %}
+                                <tr><td class="text-center" colspan=99>{% trans 'No results' %}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
             </form>
             {% include 'pagination/pagination.html' %}
         </div>

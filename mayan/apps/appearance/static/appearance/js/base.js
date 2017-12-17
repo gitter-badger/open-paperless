@@ -225,4 +225,10 @@ jQuery(document).ready(function() {
     $('.select-auto-submit').change(function () {
         this.form.submit();
     });
+
+    $('.checkbox-check-all-list-item').click(function(e) {
+        var panel = $(e.target).parents('.x_panel');
+        var checked = $(e.target).prop('checked');
+        $('.x_content input:checkbox', panel).prop('checked', checked);
+    });
 });

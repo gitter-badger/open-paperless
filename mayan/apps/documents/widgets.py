@@ -350,6 +350,7 @@ class DocumentThumbnailWidget(BaseDocumentThumbnailWidget):
 
 
 class DocumentPageThumbnailWidget(BaseDocumentThumbnailWidget):
+    click_view_name = 'documents:document_page_view'
     width = '100%'
 
     def get_title(self, instance):
